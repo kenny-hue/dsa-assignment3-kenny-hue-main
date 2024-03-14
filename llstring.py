@@ -102,6 +102,13 @@ class LLString:
             if tail.next.val != ' ':
                 tail = tail.next
             else:
+                tail = tail.next
+                break
+
+        while tail.next is not None:
+            if tail.next.val != ' ':
+                tail = tail.next
+            else:
                 tail.next = None
                 break
 
