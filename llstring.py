@@ -43,25 +43,70 @@ class LLString:
 
     def find(self, c):
         no_index = 0
+        trav = self.head
 
-        for letter in self.split:
-            if c == letter:
+        while trav is not None:
+            if c == trav.val:
                 return no_index
+            trav = trav.next
             no_index += 1
         return -1
 
 
     def to_upper_case(self):
-        pass
+        def recursive_to_upper(node):
+            if node is None:
+                return
+            node.val = node.val.upper()
+            recursive_to_upper(node.next)
+
+        recursive_to_upper(self.head)
 
     def replace(self, old, new):
-        pass
+        def recursive_replace(node):
+            if node is None:
+                return
+            if node.val == old:
+                node.val = new
+            recursive_replace(node.next)
+
+        recursive_replace(self.head)
 
     def copy(self):
-        pass
+        new_list = LLString("")
+        trav = self.head
+
+        while trav is not None:
+            new_list.append(trav.val)
+            trav = trav.next
+
+        return new_list
 
     def trim(self):
-        pass
+        # Trim leading spaces
+        while self.head is not None and self.head.val == ' ':
+            self.head = self.head.next
+
+        # Trim trailing spaces
+        trav = self.head
+        prev = None
+        while trav is not None:
+            if trav.val == ' ' and trav.next is None:
+                prev.next = None
+                break
+            prev = trav
+            trav = trav.next
 
     def find_nth(self, n, c):
-        pass
+        def recursive_find_nth(node, count):
+            if node is None:
+                return -1
+            if node.val == c:
+                if count == 0:
+                    return 0
+                return 1 + recursive_find_nth(node.next, count - 1)
+            return recursive_find_nth(node.next, count)
+
+        if n < 0:
+            return -1
+        return recursive_find_nth(self.head, n)
