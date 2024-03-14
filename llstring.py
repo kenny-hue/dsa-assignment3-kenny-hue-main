@@ -94,11 +94,19 @@ class LLString:
         prev = self.head
         trav = self.head.next
         while trav is not None:
-            if trav.val == ' ' and trav.next is None:
-                prev.next = None
-                break
-            prev = trav
-            trav = trav.next
+            if trav.val == ' ' and trav.next is not None and trav.next.val == ' ':
+                prev.next = trav.next
+                trav = trav.next
+            else:
+                prev = trav
+                trav = trav.next
+                
+        # Trim trailing spaces after removing internal spaces
+        while prev is not None and prev.val == ' ':
+            prev = prev.next
+        if prev is not None:
+            prev.next = None
+
 
     def find_nth(self, n, c):
         def recursive_find_nth(node, count):
