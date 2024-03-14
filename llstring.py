@@ -83,7 +83,7 @@ class LLString:
         return new_list
 
     def trim(self):
-        # Trim leading spaces
+    # Trim leading spaces
         while self.head is not None and self.head.val == ' ':
             self.head = self.head.next
 
@@ -105,13 +105,27 @@ class LLString:
             prev.next = None
             trav = prev
 
-        # Remove internal spaces
+        # Remove internal leading and trailing spaces
         trav = self.head
         while trav is not None and trav.next is not None:
-            if trav.next.val == ' ':
+            # Remove leading spaces between characters
+            while trav.next.val == ' ' and trav.next.next is not None:
                 trav.next = trav.next.next
-            else:
+            # Move to the next node
+            trav = trav.next
+
+        # Remove internal trailing spaces
+        trav = self.head
+        while trav is not None and trav.next is not None:
+            # Find the last non-space character before a space
+            while trav.next.val != ' ' and trav.next.next is not None:
                 trav = trav.next
+            # Remove trailing spaces
+            if trav.next.val == ' ':
+                trav.next = None
+            # Move to the next node
+            trav = trav.next
+
 
 
 
