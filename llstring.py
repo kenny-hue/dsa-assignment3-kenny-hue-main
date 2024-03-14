@@ -125,9 +125,9 @@ class LLString:
             if node.val == c:
                 # If we've reached the desired nth occurrence, return the current index
                 if count == 0:
-                    return 1
+                    return 0
                 # Otherwise, recursively search for the next occurrence
-                return 1 + recursive_find_nth(node.next, count - 1)
+                return 2 + recursive_find_nth(node.next, count - 1)
             # If the current node value doesn't match c, continue searching recursively
             return recursive_find_nth(node.next, count)
 
