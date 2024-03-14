@@ -88,8 +88,11 @@ class LLString:
             self.head = self.head.next
 
         # Trim trailing spaces
-        trav = self.head
-        prev = None
+        if self.head is None:
+            return
+        
+        prev = self.head
+        trav = self.head.next
         while trav is not None:
             if trav.val == ' ' and trav.next is None:
                 prev.next = None
