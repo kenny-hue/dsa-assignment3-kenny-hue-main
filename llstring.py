@@ -90,6 +90,13 @@ class LLString:
         # Trim trailing spaces
         if self.head is None:
             return
+
+        while self.tail is not None and self.tail.val == ' ':
+            self.tail = self.head
+
+        # Trim trailing spaces
+        if self.tail is None:
+            return
         
         prev = self.head
         trav = self.head.next
