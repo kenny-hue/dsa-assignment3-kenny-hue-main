@@ -116,23 +116,33 @@ class LLString:
 
 
     def find_nth(self, n, c):
-        # Helper function for recursion
-        def recursive_find_nth(node, count):
-            # Base case: if node is None or count is negative, return -1
-            if node is None or count < 0:
-                return -1
-            # If current node value matches the character c
-            if node.val == c:
-                # If we've reached the desired nth occurrence, return the current index
-                if count == 0:
-                    return 0
-                # Otherwise, recursively search for the next occurrence
-                return 2 + recursive_find_nth(node.next, count - 1)
-            # If the current node value doesn't match c, continue searching recursively
-            return recursive_find_nth(node.next, count)
-
-        # If n is less than 1, or the LLString is empty, return -1
-        if n < 1 or self.head is None:
+        if n < 1:
             return -1
-        # Start the recursive search from the head node with count = n - 1
-        return recursive_find_nth(self.head, n - 1)
+
+        count = 0
+        index = 0
+        trav = self.head
+
+        while trav is not None:
+            if trav.val == c:
+                count += 1
+                if count == n:
+                    return index
+            index += 1
+            trav = trav.next
+
+        return -1
+
+
+
+
+
+
+# Given LLString
+ll_string = LLString('banana')
+
+# Call find_nth() method for the 2nd occurrence of 'e'
+result = ll_string.find_nth(2, 'a')
+
+# Print the result
+print("Index of the 2nd occurrence of 'a':", result)
