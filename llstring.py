@@ -83,7 +83,7 @@ class LLString:
         return new_list
 
     def trim(self):
-    # Trim leading spaces
+        # Trim leading spaces
         while self.head is not None and self.head.val == ' ':
             self.head = self.head.next
 
@@ -105,40 +105,35 @@ class LLString:
             prev.next = None
             trav = prev
 
-        # Remove internal leading and trailing spaces
+        # Remove internal spaces
         trav = self.head
         while trav is not None and trav.next is not None:
-            # Remove leading spaces between characters
-            while trav.next.val == ' ' and trav.next.next is not None:
-                trav.next = trav.next.next
-            # Move to the next node
-            trav = trav.next
-
-        # Remove internal trailing spaces
-        trav = self.head
-        while trav is not None and trav.next is not None:
-            # Find the last non-space character before a space
-            while trav.next.val != ' ' and trav.next.next is not None:
-                trav = trav.next
-            # Remove trailing spaces
             if trav.next.val == ' ':
-                trav.next = None
-            # Move to the next node
-            trav = trav.next
-
+                trav.next = trav.next.next
+            else:
+                trav = trav.next
 
 
 
     def find_nth(self, n, c):
+    # Helper function for recursion
         def recursive_find_nth(node, count):
-            if node is None:
+            # Base case: if node is None or count is negative, return -1
+            if node is None or count < 0:
                 return -1
+            # If current node value matches the character c
             if node.val == c:
+                # If we've reached the desired nth occurrence, return the current index
                 if count == 0:
                     return 0
+                # Otherwise, recursively search for the next occurrence
                 return 1 + recursive_find_nth(node.next, count - 1)
+            # If the current node value doesn't match c, continue searching recursively
             return recursive_find_nth(node.next, count)
 
-        if n < 0:
+        # If n is less than 1, or the LLString is empty, return -1
+        if n < 1 or self.head is None:
             return -1
-        return recursive_find_nth(self.head, n)
+        # Start the recursive search from the head node with count = n - 1
+        return recursive_find_nth(self.head, n - 1)
+
