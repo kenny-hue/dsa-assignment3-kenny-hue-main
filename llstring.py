@@ -83,39 +83,28 @@ class LLString:
         return new_list
 
     def trim(self):
-        # Initialize head and tail pointers
-        head = self.head
-        tail = self.head
-
-        # Move head pointer forward to skip leading spaces
-        while head is not None and head.val == ' ':
-            head = head.next
+        # Find the first non-space character
+        while self.head is not None and self.head.val == ' ':
+            self.head = self.head.next
 
         # If the list is empty or contains only spaces, set head and tail to None
-        if head is None:
-            self.head = None
+        if self.head is None:
             self.tail = None
             return
 
-        # Move tail pointer backward to skip trailing spaces
-        while tail.next is not None:
-            if tail.next.val != ' ':
-                tail = tail.next
-            else:
-                tail = tail.next
-                break
+        # Iterate from the first non-space character to find the last non-space character
+        trav = self.head
+        while trav.next is not None:
+            if trav.next.val != ' ':
+                self.tail = trav.next
+            trav = trav.next
 
-        while tail.next is not None:
-            if tail.next.val != ' ':
-                tail = tail.next
-            else:
-                tail.next = None
-                break
+        # If the tail is not updated, it means the string has no trailing spaces
+        if self.tail is None:
+            self.tail = self.head
 
-        # Update head and tail of the linked list
-        self.head = head
-        self.tail = tail
-
+        # Remove trailing spaces by updating the next reference of the last non-space character
+        self.tail.next = None
 
 
 
