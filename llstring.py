@@ -87,32 +87,32 @@ class LLString:
         while self.head is not None and self.head.val == ' ':
             self.head = self.head.next
 
-        # Trim trailing spaces
+        # If the list is empty after trimming leading spaces, return
         if self.head is None:
             return
 
-        while self.tail is not None and self.tail.val == ' ':
-            self.tail = self.head
+        # Traverse to the end of the list
+        trav = self.head
+        while trav.next is not None:
+            trav = trav.next
 
-        # Trim trailing spaces
-        if self.tail is None:
-            return
-        
-        prev = self.head
-        trav = self.head.next
-        while trav is not None:
-            if trav.val == ' ' and trav.next is not None and trav.next.val == ' ':
-                prev.next = trav.next
-                trav = trav.next
-            else:
-                prev = trav
-                trav = trav.next
-                
-        # Trim trailing spaces after removing internal spaces
-        while prev is not None and prev.val == ' ':
-            prev = prev.next
-        if prev is not None:
+        # Remove trailing spaces
+        while trav.val == ' ':
+            # Find the node before the trailing space node
+            prev = self.head
+            while prev.next != trav:
+                prev = prev.next
             prev.next = None
+            trav = prev
+
+        # Remove internal spaces
+        trav = self.head
+        while trav is not None and trav.next is not None:
+            if trav.next.val == ' ':
+                trav.next = trav.next.next
+            else:
+                trav = trav.next
+
 
 
     def find_nth(self, n, c):
