@@ -142,7 +142,7 @@ class LLString:
 ll_string = LLString('banana')
 
 # Call find_nth() method for the 2nd occurrence of 'e'
-result = ll_string.find_nth(2, 'a')
+result = ll_string.find_nth(4, 'a')
 
 # Print the result
 print("Index of the 2nd occurrence of 'a':", result)
