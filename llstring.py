@@ -116,7 +116,7 @@ class LLString:
 
 
     def find_nth(self, n, c):
-    # Helper function for recursion
+        # Helper function for recursion
         def recursive_find_nth(node, count):
             # Base case: if node is None or count is negative, return -1
             if node is None or count < 0:
@@ -125,7 +125,7 @@ class LLString:
             if node.val == c:
                 # If we've reached the desired nth occurrence, return the current index
                 if count == 0:
-                    return 0
+                    return 1
                 # Otherwise, recursively search for the next occurrence
                 return 1 + recursive_find_nth(node.next, count - 1)
             # If the current node value doesn't match c, continue searching recursively
@@ -136,4 +136,3 @@ class LLString:
             return -1
         # Start the recursive search from the head node with count = n - 1
         return recursive_find_nth(self.head, n - 1)
-
